@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Sonde météo</title>
+  <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    var socket = io.connect('http://localhost:3000');
+  </script>
+
+  <script>
+    socket.on('temperature', function(temperature) {
+    $(temp).text(temperature);
+  });
+  </script>
+</head>
+
+<body>
+  <div id="wrapper">
+    <h1>Sonde Météo</h1>
+    <div id="wrap_temp">
+      <img src="img/temp.png">
+      <span id="temp"></span>°C
+    </div>
+  </div>
+</body>
+</html>

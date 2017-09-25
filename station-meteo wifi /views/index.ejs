@@ -1,0 +1,209 @@
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>station météo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+
+  <meta charset="utf-8">
+  <title>Sonde météo</title>
+  <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+   <script src="/socket.io/socket.io.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="raphael-2.1.4.min.js"></script>
+  <script src="justgage.js"></script>
+   <script>
+
+           var socket = io.connect('http://localhost:3000');
+
+    </script>
+    <script>
+var tt ='' ;
+var hh ='' ;
+var vv ='' ;
+
+    socket.on('temperature', function(temperature) {
+
+            $(temp).text(temperature);
+
+   tt = temperature ;
+            })
+
+  socket.on('humidite', function(humidite) {
+
+                    $(humi).text(humidite);
+hh = humidite ;
+                    })
+socket.on('wind',function(wind){
+
+//$(vent).text(wind);
+vv = wind ;
+console.log(vv) ;
+})
+console.log(vv)
+var gageValue = 0 ;
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+      g1 = new JustGage({
+          id: "g1",
+          value: gageValue,
+          min: 0,
+          max: 40,
+          donut: true,
+          gaugeWidthScale: 0.6,
+          counter: true,
+          hideInnerShadow: true
+      });
+       setInterval(function() {
+        g1.refresh(gageValue + tt);
+        }, 2500);
+          });
+
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+
+              g2 = new JustGage({
+                  id: "g2",
+                  value: gageValue,
+                  min: 0,
+                  max: 100,
+                  donut: true,
+                  gaugeWidthScale: 0.6,
+                  counter: true,
+                  hideInnerShadow: true
+              });
+               setInterval(function() {
+                g2.refresh(gageValue + hh);
+                }, 2500);
+                  });
+
+   document.addEventListener("DOMContentLoaded", function(event) {
+
+              g3 = new JustGage({
+                  id: "g3",
+                  value: gageValue,
+                  min: 0,
+                  max: 100,
+                  donut: true,
+                  gaugeWidthScale: 0.6,
+                  counter: true,
+                  hideInnerShadow: true
+              });
+               setInterval(function() {
+                g3.refresh(gageValue +vv );
+                }, 2500);
+                  });
+
+  $(document).ready(function() {
+
+  // Click on buttons
+  $("#on").click(function() {
+    $.get('/lamp_control/digital/7/1');
+  });
+
+  $("#off").click(function() {
+    $.get('/lamp_control/digital/7/0');
+  });
+
+});
+
+    </script>
+
+
+</head>
+
+<body>
+
+	<div class="container">
+
+		<!-- The justified navigation menu is meant for single line per list item.
+           Multiple lines will require custom code not provided by Bootstrap. -->
+		<div class="masthead">
+			<h3 class="text-muted">Project name</h3>
+			<nav>
+				<ul class="nav nav-justified">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#">Projects</a></li>
+					<li><a href="#">Services</a></li>
+					<li><a href="#">Downloads</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+			</nav>
+		</div>
+
+		<!-- Jumbotron -->
+		<div class="jumbotron">
+			<h1>Information and stuff!</h1>
+                      <div id="wrapper">
+                  <h1>Sonde Météo</h1>
+                  <div id="wrap_temp">
+                 <img src="img/temp.png">
+                 <span id="temp"></span>°C
+              </div>
+                 <div id="wrap_hum">
+               <img src="img/hum.png">
+                <span id="humi"></span>%
+            </div>
+        </div>
+
+
+			<p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>
+		</div>
+
+		<!-- Example row of columns -->
+		<div class="row">
+			<div class="col-lg-4">
+				<h2>Temperature!</h2>
+				<div id="g1" class="gauge"></div>
+				
+			</div>
+			<div class="col-lg-4">
+				<h2>Humidity </h2>
+				<div id="g2" class="gauge"></div>
+				
+			</div>
+			<div class="col-lg-4">
+				<h2>Vent</h2>
+				<div id="g3" class="gauge"></div>
+				
+			</div>
+		</div>
+
+<br>
+<div class="row">
+  <div class="col-lg-4">
+    <div>
+      <button type="submit" id="on">
+          ON
+      </button>
+    </div>
+  <div class="col-lg-4">
+    <div>
+      <button type="submit" id="off">
+          OFF
+      </button>
+    </div>
+		<!-- Site footer -->
+		<footer class="footer">
+
+		</footer>
+
+	</div>
+	<!-- /container -->
+
+
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+
+</body>
+  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+
+
+</body>
+</html>

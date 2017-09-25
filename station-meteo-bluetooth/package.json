@@ -1,0 +1,24 @@
+{
+  "name": "station-meteo-bluetooth",
+  "version": "1.0.0",
+  "description": "Projet de station météo fonctionnant avec un arduino  qui capture la température et l'envoie en bluetooth à  un raspberry pi avec nodeJS pour gèrer la partie web.",
+  "main": "weather_station_bluetooth.js",
+  "scripts": {
+    "test": "node"
+  },
+  "keywords": [
+    "arduino",
+    "bluetooth",
+    "raspberry",
+    "pi",
+    "nodeJS"
+  ],
+  "author": "Samuel, Feres, Francois, Denis, Jean-Sebastien",
+  "license": "ISC",
+  "dependencies": {
+    "bluetooth-serial-port": "^2.1.2",
+    "express": "^4.15.3",
+    "socket.io": "^2.0.1"
+  },
+  "devDependencies": {}
+}
